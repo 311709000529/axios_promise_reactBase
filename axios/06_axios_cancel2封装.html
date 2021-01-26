@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+    <script type="text/javascript" >
+        let instance = axios.create({
+            baseURL: 'http://localhost:4000' ,
+        })
+        let cancel
+        instance.interceptors.request.use( config => {
+            if ( cancel ) {
+                cancel('强制中断')
+            }
+            config.cancelToken = new axios.CancelToken( c => {
+                return cancel = c
+            })
+            return config
+        })
+        instance.interceptors.response.use( config => {
+            cancel = null 
+            return config
+        }, error => {
+            if ( axios.isCancel(error) ) {
+                alert('取消请求错误:' + error.message)
+            } else {
+                cancel = null 
+                alert('请求错误:' + error.message)
+            }
+            return new Promise(()=>{})
+        })
+        function getProducts() {
+            instance('/post').then( value => {
+                console.log(response.data)
+            })
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+
+    </div>
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/javascript" src="../js/prop-types.js"></script>
+    <script type="text/babel" >
+        class Live extends React.Component {
+            state = {
+                opacity:1
+            }
+            constructor() {
+                console.log('--constructor--')
+                super()
+            }
+            getDerivedStateFromProps() {
+                console.log('--getDerivedStateFromProps--')
+            }
+            componentDidMount() {
+                console.log('--componentDidMount--')
+                let {opacity} = this.state
+                this.timer = setInterval(() => {
+                    opacity -= 0.1 
+                    if(opacity <= 0) {
+                        opacity = 1 
+                    }
+                    this.setState({opacity})
+                }, 200);
+            }
+            
+            // componentWillUpdate() {
+            //     console.log("--componentWillUpdate--")
+            // }
+            componentDidUpdate() {
+                console.log("--componentDidUpdate--")
+            }
+
+            componentWillUnmount() {
+                console.log('--componentWillUnmount--')
+                clearInterval(this.timer) ;
+            }
+            death = () => {
+                ReactDOM.unmountComponentAtNode(document.querySelector("#box") ) ;
+            }
+            render() {
+                console.log('--render--')
+                return (
+                    <div>
+                        <h1 style={{opacity:this.state.opacity}}>React太难了，不活了</h1>
+                        <button onClick={this.death}>spy</button>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Live /> ,document.querySelector("#box")) ;
+    </script>
+</body>
+</html>

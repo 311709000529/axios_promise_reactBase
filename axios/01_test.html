@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" id='btn'>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+    <script type="text/javascript" >
+        axios.defaults.baseURL = 'http://localhost:3000/'
+        function testGet() {
+            // axios({
+            //     method: 'GET' ,
+            //     url: '/posts',
+            //     params : {
+            //         id : 2
+            //     }
+            // })
+            axios.get('/posts' ,{
+                params: {
+                    id:2
+                }
+            })
+            .then((value)=>{
+                    console.log(value.data ,value.status ,value.statusText)
+                }
+            ).catch(error => {
+                console.log(error.message)
+            })
+        }
+        function testPost() {
+            //axios.defaults.baseURL = 'http://localhost:3000'
+            axios({
+                method:'post',
+                url:'/posts' ,
+                data :{
+                    title:'eee',
+                    author:'fff'
+                }
+            }).then(
+                value => {
+                    console.log(value.data , value.status ,value.statusText)
+                },
+                error => {
+                    console.log(error.message)
+                }
+            )
+        }
+        let btn = document.querySelector('#btn')
+        btn.onclick = function() {
+            testPost()
+        }
+    </script>
+</body>
+</html>

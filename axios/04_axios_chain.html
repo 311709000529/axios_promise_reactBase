@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+    <script type="text/javascript">
+        axios.defaults.baseURL = 'http://localhost:3000/posts'
+        axios.interceptors.request.use(function (config) {
+            console.log('req onResolved()1!', config)
+            return config
+        })
+        axios.interceptors.request.use(function (config) {
+            console.log('req onResolved()2!', config)
+            return config
+        })
+        axios.interceptors.response.use(function (config) {
+            console.log('res onResolved()1!')
+            return config.data
+        }, function (error) {
+            console.log('res onRejected()1!')
+            return Promise.reject(error)
+        })
+        axios.interceptors.response.use(function (config) {
+            console.log('res onResolved()2!')
+            return config
+        }, function (error) {
+            console.log('res onRejected()2!')
+            return Promise.reject(error)
+        })
+        axios({
+            method: 'GET'
+        }).then( value => {
+            console.log('--------------------')
+            console.log('onResolve')
+            // console.log(value.data)
+        }, error => {
+            console.log(error.message)
+        })
+    </script>
+</body>
+
+</html>

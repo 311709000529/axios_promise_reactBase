@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+
+    </div>
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/javascript" src="../js/prop-types.js"></script>
+    <script type="text/babel">
+        class App extends React.Component {
+            state = {
+                todoList : ['吃饭','睡觉','唱歌'] 
+            }
+            addTodo = (data) => {
+                let {todoList} = this.state
+                todoList.unshift(data)
+                this.setState({todoList})
+            }
+            render() {
+                let {todoList} = this.state
+                return (
+                    <div>
+                        <h1>Simple TODO List</h1>
+                        <Add addTodo={this.addTodo} count={todoList.length} />
+                        <List todoList={todoList} />
+                    </div>
+                )
+            }
+        }
+        
+        class Add extends React.Component {
+            add = () => {
+                let userinput = this.click.value    
+                if ( userinput.trim() === '' ) return 
+                this.props.addTodo(userinput)
+                this.click.value = ''
+            }
+            render() {
+                return (
+                    <div>
+                        <input type="text" ref={(input)=> this.click = input} />
+                        <button onClick={this.add}>Add #{this.props.count}</button>
+                    </div>
+                )
+            }
+        }
+        class List extends React.Component {
+            render() {
+                let {todoList} = this.props
+                return (
+                    <div>
+                        <ul>
+                            {
+                                todoList.map( (item ,index)=> <li key={index}>{item}</li> )
+                            }
+                        </ul>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<App/> ,document.querySelector('#box') ) ;
+    </script>
+</body>
+</html>

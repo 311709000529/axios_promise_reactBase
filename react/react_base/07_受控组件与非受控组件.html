@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            margin: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+
+    </div>
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/javascript" src="../js/prop-types.js"></script>
+    <script type="text/babel" >
+        class Login extends React.Component {
+            state = {
+                password:''
+            }
+            submitHandle = () => {
+                event.preventDefault()
+                let value = this.refs.input.value
+
+                alert(`用户名是${value}密码是${this.state.password}`)
+            }
+            ChangeHandle = (event) => {
+               this.setState({password:event.target.value})
+            }
+            render() {
+                return (
+                    <div>
+                        <form action="www.baidu.com" onSubmit={this.submitHandle}>
+                            用户名：<input type="text" ref='input' />
+                            密码：<input type="password" onChange={this.ChangeHandle} />
+                            <button>点我显示</button>
+                        </form>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Login /> ,document.querySelector('#box') ) ;
+    </script>
+    
+</body>
+</html>

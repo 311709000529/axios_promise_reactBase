@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript" >
+        let promise = new Promise((resolve ,reject)  => {
+            setTimeout(() => {
+                let time = Date.now()
+                if ( time % 2 == 0 ) {
+                    resolve( time)
+                } else {
+                    reject(time)
+                }
+            }, 1000);
+        })
+        promise.then(
+            error => {
+                console.log('现在时间是偶数error' + error)
+            },
+            value => {
+                console.log('现在时间是奇数value' + value)
+            }
+        )
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+
+    </div>
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/javascript" src="../js/prop-types.js"></script>
+    <script type="text/babel">
+        class MyComponent extends React.Component {
+            clickHandel = () => {
+                alert(this.refs.click.value)
+            }
+            blurHandel = () => {
+                alert(this.refs.blur.value)
+            }
+            render () {
+                return (
+                    <div>
+                        <input type="text " ref='click'/>
+                        <button onClick={this.clickHandel} >点我切换</button>
+                        <input type="text " placeholder='失去焦点切换' onBlur = {this.blurHandel} ref='blur'/>
+                    </div>                    
+                )
+            }
+        }
+        ReactDOM.render(<MyComponent /> ,document.querySelector("#box") ) ;
+    </script>
+</body>
+</html>

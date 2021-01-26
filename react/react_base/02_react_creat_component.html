@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .red{
+            /* background-color: red; */
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <div id="box1"></div>
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+        function MyComponent() {
+            return (
+                <div className='red'>
+                    <h1>
+                        工厂函数制作vDom    
+                    </h1>
+                </div>
+            )
+        }
+
+        ReactDOM.render( <MyComponent/> , document.querySelector('#box'));
+
+        class MyComponent2 extends React.Component{
+            constructor(){
+                super()
+            }
+            render() {
+                return <h1>
+                        这是class制作的vDom
+                    </h1>
+            }
+        }   
+        ReactDOM.render(<MyComponent2/> ,document.querySelector('#box1'))
+    </script>
+</body>
+
+</html>
